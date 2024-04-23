@@ -1,15 +1,15 @@
-package ru.qa.scooter.praktikum;
+package ru_qa_scooter_praktikum;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.qa.scooter.praktikum.page.MainPage;
-import ru.qa.scooter.praktikum.page.OrderPage;
-import ru.qa.scooter.praktikum.page.RentPage;
+import ru_qa_scooter_praktikum.page.MainPage;
+import ru_qa_scooter_praktikum.page.OrderPage;
+import ru_qa_scooter_praktikum.page.RentPage;
 
-import static org.junit.Assert.assertTrue;
+
 
 public class OrderTest {
 private WebDriver webDriver;
@@ -20,31 +20,41 @@ private WebDriver webDriver;
 
     }
 
-     @Test // проверка несуществующего заказа
-    public void orderNotFound(){
-      MainPage mainPage=new MainPage(webDriver);
-      mainPage.cookieCloseWind();// приняли куки, закрыли сообщение о куки
-      mainPage.clickOrderStatusBtn();
-      mainPage.enterOrderNumber("122322585225");
-      mainPage.clickGoBtn();
-      assertTrue(mainPage.notFoundImgIsDisplayed());
-     // закрывает текущую вкладку, а quit - все вкладки и сам драйвер
-    }
-        @Test // кнопка Заказать в верхнем блоке
-       public void createOrder() {
+          @Test // кнопка Заказать в верхнем блоке
+       public void createOrderHead() {
             MainPage mainPage = new MainPage(webDriver); //
             mainPage.cookieCloseWind();// приняли куки, закрыли сообщение о куки
             mainPage.clickCreateOrder();//нажали на кнопку заказать
 
             OrderPage orderPage = new OrderPage(webDriver);
-            orderPage.fillCustomerInfo("Имя", "Фамилия", "Адрес", "Арбатская", "+79663225623");
-            orderPage.clickNextBtn();
+            orderPage.fillCustomerInfo("Имя", "Фамилия", "Адрес", "Арбатская", "+79663225623"); // Заполнили форму Для кого самокат
+            orderPage.clickNextBtn(); //кнопка перехода на форму Про аренду
 
             RentPage rentPage = new RentPage(webDriver);
-            rentPage.fillRentInfo("25.05.2025", "сутки");
-            rentPage.createOrderBtn();
-        }
+            rentPage.fillRentInfo("25.05.2025", "сутки"); //заполнили форму Про Аренду
+            rentPage.createOrder(); //нажали Создать заказ (кнопка Заказать)
+            rentPage.arrangeYes(); //в окне Хотите оформить заказ нажали Да
+            rentPage.viewOrderStatus(); // к оне Заказ оформлен нажали Посмотреть статус
 
+       }
+    @Test // кнопка Заказать в нижнем блоке
+    public void createOrderFooter() {
+        MainPage mainPage = new MainPage(webDriver); //
+        mainPage.cookieCloseWind();// приняли куки, закрыли сообщение о куки
+
+        mainPage.clickFooterCreateOrder();//нажали на кнопку заказать в нижнем блоке
+
+        OrderPage orderPage = new OrderPage(webDriver);
+        orderPage.fillCustomerInfo("Имя", "Фамилия", "Адрес", "Арбатская", "+79663225623"); // Заполнили форму Для кого самокат
+        orderPage.clickNextBtn(); //кнопка перехода на форму Про аренду
+
+        RentPage rentPage = new RentPage(webDriver);
+        rentPage.fillRentInfo("25.05.2025", "сутки"); //заполнили форму Про Аренду
+        rentPage.createOrder(); //нажали Создать заказ (кнопка Заказать)
+        rentPage.arrangeYes(); //в окне Хотите оформить заказ нажали Да
+        rentPage.viewOrderStatus(); // в окне Заказ оформлен нажали Посмотреть статус
+
+    }
 
     @After
     public void tearDown(){

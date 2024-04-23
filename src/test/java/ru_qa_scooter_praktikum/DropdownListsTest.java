@@ -1,4 +1,4 @@
-package ru.qa.scooter.praktikum;
+package ru_qa_scooter_praktikum;
 
 import org.junit.After;
 import org.junit.Before;
@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.qa.scooter.praktikum.page.MainPage;
+import ru_qa_scooter_praktikum.page.MainPage;
 
 import static org.junit.Assert.assertTrue;
 @RunWith(Parameterized.class)
